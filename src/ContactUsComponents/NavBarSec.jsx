@@ -228,7 +228,7 @@ export default function NavBarSec() {
                                 <li>
                                     Tariff Desert Safari
                                 </li>
-                                <li>
+                                <li className='Contactus'>
                                     Contact Us
                                 </li>
                             </ul>

@@ -8,6 +8,10 @@ import AdminDash from './Dashboard/AdminDash';
 import Coustomer from './Dashboard/Customer';
 import FormHandling from './Dashboard/FormHandling';
 import ContactUs from './ContactUsComponents/ContactUs.jsx';
+import Driver from './Dashboard/Driver.jsx';
+import Drivertable from './Dashboard/Drivertable.jsx';
+import Admin from './Dashboard/Admin.jsx';
+import AdminLogin from './AdminLogin.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -32,6 +36,22 @@ const route = createBrowserRouter([
   {
     path: '/contactus',
     element: <ContactUs />,
+  },
+  {
+    path:'/driver',
+    element:<Driver/>
+  },
+  {
+    path:'/driver-view',
+    element:<Drivertable/>
+  },
+  {
+    path:'/adminprofile',
+    element:<Admin/>
+  },
+  {
+    path:'/adminlogin',
+    element:<AdminLogin/>
   }
 ])
 root.render(

@@ -1,11 +1,27 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 
 const Form = () => {
+
+  const [Data,setData] = useState([]);
+  
+  const ShowForm =async()=>{
+    try {
+      const response = await axios.get(`http://localhost:8000/api/jcr-services/user/show-user`)
+      setData(response.data.data);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(()=>{ShowForm();},[])
+  console.log(Data)
+
   return (
     <div class="container-fluid">
-    {/* <!-- Sidebar --> */}
-    <div class="row flex-nowrap">
-      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark text-white sidebar">
+      {/* <!-- Sidebar --> */}
+      <div class="row flex-nowrap">
+      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark text-white sidebar" style={{height:'100vh'}} >
         <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
           <h4 class="my-3">Dashboard</h4>
           <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
@@ -13,7 +29,7 @@ const Form = () => {
               <a href="./admin" class="nav-link text-white">Home</a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white">Users</a>
+              <a href="./adminprofile" class="nav-link text-white">Admin-profile</a>
             </li>
             <li>
               <a href="./formhandel" class="nav-link text-white">Forms</a>
@@ -21,59 +37,69 @@ const Form = () => {
             <li>
               <a href="./customer" class="nav-link text-white">Customer Feedback</a>
             </li>
+            
             <li>
-            <li>
-              <a href="#" class="nav-link text-white">Driver Management</a>
+              <a href="./driver" class="nav-link text-white">Add Driver</a>
             </li>
+
+            <li>
+              <a href="./driver-view" class="nav-link text-white">View Driver</a>
+            </li>
+
+            {/* <li>
               <a href="#" class="nav-link text-white">Settings</a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
 
-      {/* <!-- Main Content --> */}
-      <div class="col py-3">
-        <div className='col'>
-        {/* <!-- Navbar --> */}
-  <nav class="navbar navbar-expand-lg navbar-custom ">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Dashboard</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Users</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Settings</a>
-          </li>
-        </ul>
-        <div class="d-flex align-items-center">
-          <i class="fas fa-bell me-3 text-white"></i>
-          <i class="fas fa-envelope me-3 text-white"></i>
-          <i class="fas fa-clock me-3 text-white"></i>
-          <img src="src/images/tusharprofile.jpg" alt="Profile" class="rounded-circle" width="40" height="40"/>
-        </div>
-      </div>
-    </div>
-  </nav>
+        {/* <!-- Main Content --> */}
+        <div class="col py-3">
+          <div className='col'>
+            {/* <!-- Navbar --> */}
+            <nav class="navbar navbar-expand-lg navbar-custom ">
+              <div class="container-fluid">
+                <a class="navbar-brand" href="#">Dashboard</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#">Dashboard</a>
+                    </li>
 
-  {/* <!-- Nav Second --> */}
-  <nav class="navsecond-custom py-3">
-    <div class="container-fluid">
-      <a href="#">Home</a>
-      <a href="#"> / Dashboard</a>
-    </div>
-  </nav>
-        </div>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Users</a>
+                    </li>
 
-        {/* <!-- Cards Section --> */}
-        <div class="row mb-3">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Settings</a>
+                    </li>
+                    
+                  </ul>
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-bell me-3 text-white"></i>
+                    <i class="fas fa-envelope me-3 text-white"></i>
+                    <i class="fas fa-clock me-3 text-white"></i>
+                    <img src="src/images/tusharprofile.jpg" alt="Profile" class="rounded-circle" width="40" height="40" />
+                  </div>
+                </div>
+              </div>
+            </nav>
+
+            {/* <!-- Nav Second --> */}
+            <nav class="navsecond-custom py-3">
+              <div class="container-fluid">
+                <a href="/">Home</a>
+                <a href="./admin"> / Dashboard</a>
+              </div>
+            </nav>
+          </div>
+
+          {/* <!-- Cards Section --> */}
+          {/* <div class="row mb-3">
           <div class="col-md-3">
             <div class="card text-white bg-primary">
               <div class="card-body">
@@ -106,49 +132,46 @@ const Form = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        {/* <!-- Form Handling --> */}
-        <div class="container mt-4">
-            <form id="formExample" onsubmit="handleSubmit(event)">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="name" class="form-control" id="name" placeholder="Enter your name"/>
-                </div>
-                <div class="mb-3">
-                    <label for="address" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email"/>
-                </div>
-                <div class="mb-3">
-                    <label for="phoneNumber" class="form-label">Phone Number</label>
-                    <input type="mobilenumber" class="form-control" id="number" placeholder="Enter your Mobile Number"/>
-                </div>
-                <div class="mb-3">
-                    <label for="address" class="form-label">Pickup Address</label>
-                    <input type="address" class="form-control" id="address" placeholder="Enter pickup address"/>
-                </div>
-                <div class="mb-3">
-                    <label for="numberpeople" class="form-label">Number of People</label>
-                    <input type="number" class="form-control" id="password" placeholder="Enter Number of People" />
-                </div>
-                <div class="mb-3">
-                    <label for="carservice" class="form-label">Car Service</label>
-                    <input type="carservice" class="form-control" id="carservice" placeholder="Enter the car you want"/>
-                </div>
-                <div class="mb-3">
-                    <label for="pickupdate" class="form-label">Pickup Date</label>
-                    <input type="date" class="form-control" id="pickupdate" placeholder="Enter Pickup date" />
-                </div>
-                <div class="mb-3">
-                    <label for="dropupdate" class="form-label">Drop Date</label>
-                    <input type="date" class="form-control" id="password" placeholder="Enter Drop date" />
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+          {/* <!-- Form Handling --> */}
+          <h1 className='text-center'>User's Enquiry</h1>
+          <hr />
+          <div class="container mt-4">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">S.No.</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Number</th>
+                  <th scope="col">Trip Option</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Destinstion</th>
+                  <th scope="col">Message</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Data.map((v,i)=>(
+                  <tr>
+                  <th scope="row">1</th>
+                  <td>{v.name}</td>
+                  <td>{v.email}</td>
+                  <td>{v.pno}</td>
+                  <td>{v.option}</td>
+                  <td>{v.address}</td>
+                  <td>{v.destination}</td>
+                  <td>{v.message}</td>
+                </tr>
+                ))}
+                
+                
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   )
 }
 

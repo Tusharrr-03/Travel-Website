@@ -6,8 +6,30 @@ import myImages3 from 'D:/html tutorial/jcrCab/new/src/images/clearlogo/bikaner_
 import myImages4 from 'D:/html tutorial/jcrCab/new/src/images/clearlogo/Udaipur_icon.png'
 import myImages5 from 'D:/html tutorial/jcrCab/new/src/images/clearlogo/phone.png'
 import myImages6 from 'D:/html tutorial/jcrCab/new/src/images/clearlogo/mail.png'
+import axios from 'axios'
 
 const Bottomfinal = () => {
+
+    const FormHandel = async (e) => {
+        e.preventDefault();
+        const data = {
+          name: e.target.name.value,
+          email: e.target.email.value,
+          feedback: e.target.feedback.value
+        }
+        try {
+          const response = await axios.post(`http://localhost:8000/api/jcr-services/feedback/register-feedback`, { data })
+    
+            
+        }
+        catch (error) {
+          console.log(error);
+        }
+            e.target.name.value=''
+            e.target.email.value=''
+            e.target.feedback.value=''
+      }
+
   return (
     <div className='container-fluid info-bg p-5'>
         <div className="container ">
@@ -147,6 +169,34 @@ const Bottomfinal = () => {
     				    </div>
     			    </div>
                 </div>
+
+				{/* <!-- Customer Feedback Form --> */}
+				<div className='container mt-5'>
+                <div className='row justify-content-center'>
+                    <div className='col-md-6 text-white'>
+                        <h2 className='text-center mb-3'>Customer Feedback Form</h2>
+                        <form action="" onSubmit={FormHandel}>
+                            <div className='mb-3 d-flex justify-content-center gap-5 '>
+                                <label htmlFor="">Name</label>
+                                <input type="text" name='name' />   
+                            </div>
+                            <div className='mb-3 d-flex justify-content-center gap-5'>
+                                <label htmlFor="">Email</label>
+                                <input type="text" name='email' />   
+                            </div>
+                            <div className='mb-3 d-flex justify-content-center gap-3'>
+                                <label htmlFor="">Feedback</label>
+                                <input type="text" name='feedback' />   
+                            </div>
+                            <div className="d-grid">
+                                <button type="submit" className="btn btn-primary btn-block">
+                                    Submit Feedback
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>

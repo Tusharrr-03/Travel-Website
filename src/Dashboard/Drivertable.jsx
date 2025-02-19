@@ -1,22 +1,40 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-// tushargoyal
-//jVbaXG3nVbzBst7h
-const Customer = () => {
 
-  const [Data,setData] = useState([]);
+const Drivertable = () => {
+
+    const [Data,setData] = useState([]);
+    const [path,setpath] = useState([]);
   
   const ShowForm =async()=>{
     try {
-      const response = await axios.get(`http://localhost:8000/api/jcr-services/feedback/show-userfeedback`)
+      const response = await axios.get(`http://localhost:8000/api/jcr-services/driver/show-driver`)
       setData(response.data.data);
+      setpath(response.data.file_path);
     }
     catch (error) {
       console.log(error);
     }
   }
-  useEffect(()=>{ShowForm();},[])
-  console.log(Data)
+
+  const DeleteDriver=async(e)=>{
+    try{
+      const response = await axios.delete(`http://localhost:8000/api/jcr-services/driver/delete-driver/${e.target.value}`)
+      if(response.status==200){
+        const indexNo = Data.findIndex((v) => v._id === e);
+                const newData = [...Data]
+                newData.splice(indexNo, 1);
+                setData(newData);
+      }
+
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{ShowForm();},[Data])
+//   console.log(Data)
 
   return (
     <div class="container-fluid">
@@ -67,10 +85,10 @@ const Customer = () => {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" href="./admin">Dashboard</a>
+            <a class="nav-link active" href="#">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./formhandel">Users</a>
+            <a class="nav-link" href="#">Users</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Settings</a>
@@ -100,9 +118,10 @@ const Customer = () => {
                 <tr>
                   <th scope="col">S.No.</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Email</th>
-                  
-                  <th scope="col">FeedBack</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Facility</th>
+                  <th scope="col">Number</th>
+                  <th scope="col">Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -110,9 +129,11 @@ const Customer = () => {
                   <tr>
                   <th scope="row">1</th>
                   <td>{v.name}</td>
-                  <td>{v.email}</td>
+                  <td> <img src={`${path}${v.profile}`} width={100} height={100} /> </td>
                  
-                  <td>{v.feedback}</td>
+                  <td>{v.facility}</td>
+                  <td>{v.number}</td>
+                  <td><button value={v._id} onClick={DeleteDriver} >Delete</button></td>
                 </tr>
                 ))}
                 
@@ -163,4 +184,4 @@ const Customer = () => {
   )
 }
 
-export default Customer
+export default Drivertable

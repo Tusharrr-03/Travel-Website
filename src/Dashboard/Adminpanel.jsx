@@ -1,16 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 
-
+import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom';
 
 
 const Adminpanel = () => {
+  const nav = useNavigate();
+  const [profile, setprofile] = useState([])
+
+  const checkedifloggedin = () => {
+    let cookiedata = Cookies.get("JcrAdmin-login");
+    if (!cookiedata) {
+      nav("/adminlogin")
+    } else {
+      cookiedata = JSON.parse(cookiedata)
+      setprofile(cookiedata)
+    }
+  }
+  
+  useEffect(()=>{checkedifloggedin();},[])
+  // console.log(profile)
+
   return (
     <>
     <div>
       <h1>Admin Panel</h1>
       <nav>
-        <a href="/">Dashboard</a> | <a href="./Customer">Customer</a> | <a href="./FormHandling">Form Handling</a>
+        <a href="/">Dashboard</a> | <a href="./Customer">Customer</a> | <a href="./formhandel">Form Handling</a>
       </nav>
       <hr />
       {/* <Outlet /> Renders child components */}
@@ -18,7 +35,7 @@ const Adminpanel = () => {
       <div class="container-fluid">
     {/* <!-- Sidebar --> */}
     <div class="row flex-nowrap">
-      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark text-white sidebar">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark text-white sidebar" style={{height:'100vh'}} >
         <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
           <h4 class="my-3">Dashboard</h4>
           <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
@@ -26,7 +43,7 @@ const Adminpanel = () => {
               <a href="./admin" class="nav-link text-white">Home</a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white">Users</a>
+              <a href="./adminprofile" class="nav-link text-white">Admin-profile</a>
             </li>
             <li>
               <a href="./formhandel" class="nav-link text-white">Forms</a>
@@ -34,12 +51,18 @@ const Adminpanel = () => {
             <li>
               <a href="./customer" class="nav-link text-white">Customer Feedback</a>
             </li>
+            
             <li>
-            <li>
-              <a href="#" class="nav-link text-white">Driver Management</a>
+              <a href="./driver" class="nav-link text-white">Add Driver</a>
             </li>
+
+            <li>
+              <a href="./driver-view" class="nav-link text-white">View Driver</a>
+            </li>
+
+            {/* <li>
               <a href="#" class="nav-link text-white">Settings</a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
@@ -70,7 +93,7 @@ const Adminpanel = () => {
           <i class="fas fa-bell me-3 text-white"></i>
           <i class="fas fa-envelope me-3 text-white"></i>
           <i class="fas fa-clock me-3 text-white"></i>
-          <img src="src/images/tusharprofile.jpg" alt="Profile" class="rounded-circle" width="40" height="40"/>
+          <img src={`http://localhost:8000/keshaveJcr-files/Admin/${profile.map((v) => v.profile)}`} alt="Profile" class="rounded-circle" width="40" height="40"/>
         </div>
       </div>
     </div>
@@ -79,7 +102,7 @@ const Adminpanel = () => {
   {/* <!-- Nav Second --> */}
   <nav class="navsecond-custom py-3">
     <div class="container-fluid">
-      <a href="#">Home</a>
+      <a href="">Home</a>
       <a href="#"> / Dashboard</a>
     </div>
   </nav>

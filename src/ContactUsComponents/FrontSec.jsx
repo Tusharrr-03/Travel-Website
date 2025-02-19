@@ -15,11 +15,18 @@
  import React, { useState } from "react";
  import { Container, Row, Col, Button, Form, Tab, Nav } from "react-bootstrap";
  import { FaSearch } from "react-icons/fa";
+import DriverCar from "./DriverCar";
 
  const FrontSec = () => {
    const [tripType, setTripType] = useState("local");
+   const [show,hide]=useState(false);
+
+   const ShowDriver=()=>{
+    hide(!show);
+   }
 
    return (
+    <>
      <div className="trip-booking">
        {/* Background Image with Overlay */}
        <div className="banner1">
@@ -78,7 +85,7 @@
                </Col>
 
                <Col md={2}>
-                 <Button className="search-btn">
+                 <Button className="search-btn" onClick={ShowDriver} >
                    <FaSearch /> Search
                  </Button>
                </Col>
@@ -87,6 +94,11 @@
          </div>
        </div>
      </div>
+     {
+      show==true?<DriverCar/> :<></>
+     }
+     
+     </>
    );
  };
 

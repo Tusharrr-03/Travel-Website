@@ -1,6 +1,6 @@
 import React from 'react'
-import NavBarSec from './NavBarSec'
-import Bottomfinal from './Bottomfinal'
+import NavBarSec from '../HomePageComponents/NavBarSec'
+import Bottomfinal from '../HomePageComponents/Bottomfinal'
 import Certificate from './Certificate'
 import BookRides from './BookRides'
 import FrontSec from './FrontSec'
@@ -12,7 +12,7 @@ export default function ContactUs() {
         <>
             <NavBarSec/> 
             <FrontSec/>
-            <DriverCar/>
+            
             <BookRides/>
             <Certificate/>
             <Bottom/>
